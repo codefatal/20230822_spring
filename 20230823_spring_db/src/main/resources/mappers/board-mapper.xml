@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="board">
+	<resultMap type="BoardVO" id="resultMap">
+		<id property="bno" column="BNO"/>
+		<result property="btitle" column="BTITLE"/>
+		<result property="bcontent" column="BCONTENT"/>
+		<result property="bwriteDate" column="BWRITE_DATE"/>
+		<result property="mid" column="MID"/>
+		<result property="bref" column="BREF"/>
+		<result property="breLevel" column="BRE_LEVEL"/>
+		<result property="breStep" column="BRE_STEP"/>
+	</resultMap>
+	<select id="selectList" resultMap="resultMap">
+		select * 
+		from board order by bref desc, bre_step asc
+	</select>
+	<select id="selectOne" resultMap="resultMap" parameterType="_int">
+		select * from board
+		where bno = #{bno}
+	</select>
+	<insert id="insert" parameterType="BoardVO">
+		insert into BOARD values (SEQ_BOARD_BNO.nextval, #{btitle}, #{bcontent}, default, 'kh1', 0, 0, 0)
+	</insert>
+	<insert id="insertReply" parameterType="BoardVO">
+		insert into BOARD values (SEQ_BOARD_BNO.nextval, #{btitle}, #{bcontent}, default, 'kh1'
+    	, (select bref from board where bno=#{bno})
+    	, (select bre_level+1 from board where bno=#{bno})
+    	, (select bre_step+1 from board where bno=#{bno}))
+	</insert>
+	<update id="update" parameterType="BoardVO">
+		update board set bre_step = bre_step + 1
+    	where bre_step > (select bre_step from board where bno=#{bno}) 
+        and bref = (select bref from board where bno=#{bno})
+	</update>
+</mapper>
