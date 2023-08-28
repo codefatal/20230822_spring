@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.lclass.db1.member.model.vo.MemberVO;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Repository
 public class MemberDAO {
 	
 	// Autowired 사용 시 Spring에서 이미 만들어진 빈객체를 가져다 사용.
 	// 따라서 = null 또는 new SqlSession() 생성을 하지 않아야 함.
-	@Autowired
-	private SqlSession sqlSession;
+	private final SqlSession sqlSession;
 	
 	public List<MemberVO> selectList() {
 		return sqlSession.selectList("member.selectList");
@@ -30,5 +31,9 @@ public class MemberDAO {
 	}
 	public int delete(String pk) {
 		return sqlSession.delete("member.delete", pk);
+	}
+	
+	public String login(String mid) {
+		return sqlSession.selectOne("member.login", mid);
 	}
 }

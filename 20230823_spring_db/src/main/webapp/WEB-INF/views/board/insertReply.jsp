@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시글 답변 등록</title>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath }/board/insert" method="post">
+	<form action="${pageContext.request.contextPath }/board/insertReply" method="post">
+	<input type="hidden" name="bno" value="${bno }">
 	제목:<input type="text" name="btitle"><br>
 	내용:<input type="text" name="bcontent"><br>
 	<input type="submit" value="등록">

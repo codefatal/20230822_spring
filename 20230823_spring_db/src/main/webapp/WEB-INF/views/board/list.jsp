@@ -15,11 +15,31 @@
 		display: grid;
 		grid-template-columns: auto auto auto auto auto;
 	}
+	
+	.wrap-grid > div {
+		border: 1px solid #000;
+		padding: 5px;
+	}
 </style>
 </head>
 <body>
+[[${loginID }]]
+	<script>
+		var msg = '${msg}';
+		if(msg) {			
+			alert(msg);
+		}
+	</script>
+	<c:choose>
+		<c:when test="${not empty loginID }">
+			<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
+		</c:when>
+		<c:otherwise>
+			<a href="${pageContext.request.contextPath}/login">로그인</a>
+		</c:otherwise>
+	</c:choose>
 	<h2>게시글</h2>
-	<div><a href="<%=request.getContextPath() %>/board/insert">새글등록</a></div>
+	<div><a href="${pageContext.request.contextPath}/board/insert">새글등록</a></div>
 	<div class="wrap-grid">
 		<div>번호</div>
 		<div>제목</div>
@@ -30,8 +50,8 @@
 			<c:forEach items="${boardList }" var="vo">
 				<div>${vo.bno }</div>
 				<div>
-					<a href="<%=request.getContextPath() %>/board/get?bno=${vo.bno}">
-					<c:forEach begin="1" end="${bo.breLevel }">
+					<a href="${pageContext.request.contextPath}/board/get?bno=${vo.bno}">
+					<c:forEach begin="1" end="${vo.breLevel }">
 					&#8618;
 					</c:forEach>
 					${vo.btitle }
@@ -39,7 +59,7 @@
 				</div>
 				<div>${vo.mid }</div>
 				<div>${vo.bwriteDate }</div>
-				<div><a href="<%=request.getContextPath()%>/board/insertReply?bno=${vo.bno}">답글</a></div>
+				<div><a href="${pageContext.request.contextPath}/board/insertReply?bno=${vo.bno}">답글</a></div>
 			</c:forEach>
 		</c:if>
 	</div>

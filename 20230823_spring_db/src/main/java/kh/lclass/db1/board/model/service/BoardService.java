@@ -26,7 +26,7 @@ public class BoardService {
 	@Transactional
 	public int insertReply(BoardVO vo) {
 		boardDAO.update(vo);
-		return boardDAO.insertReply(vo);		
+		return boardDAO.insertReply(vo);
 	}
 	public int update(BoardVO vo) {
 		return boardDAO.update(vo);

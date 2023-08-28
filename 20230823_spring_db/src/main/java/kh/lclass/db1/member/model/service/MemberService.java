@@ -8,12 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kh.lclass.db1.member.model.dao.MemberDAO;
 import kh.lclass.db1.member.model.vo.MemberVO;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Service
 public class MemberService {
 	
-	@Autowired
-	private MemberDAO memberDAO;
+	private final MemberDAO memberDAO;
 	
 	public List<MemberVO> selectList() {
 		return memberDAO.selectList(); 
@@ -25,16 +26,14 @@ public class MemberService {
 		return memberDAO.insert(vo);
 	}
 	
-	@Transactional
-	public int insertReply(MemberVO vo) {
-		memberDAO.update(vo);
-		return memberDAO.insert(vo);
-	}
-
 	public int update(MemberVO vo) {
 		return memberDAO.update(vo);
 	}
 	public int delete(String pk) {
 		return memberDAO.delete(pk);
+	}
+	
+	public String login(String mid) {
+		return memberDAO.login(mid);
 	}
 }

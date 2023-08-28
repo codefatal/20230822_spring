@@ -1,5 +1,7 @@
 package kh.lclass.db1.board.model.vo;
 
+import java.util.List;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,5 +28,8 @@ public class BoardVO {
 	private int bref;
 	private int breLevel;
 	private int breStep;
+	
+	// 1:n 관계
+	private List<AttachFileVO> attachFileList;
 	
 }

@@ -20,10 +20,13 @@
 		where bno = #{bno}
 	</select>
 	<insert id="insert" parameterType="BoardVO">
-		insert into BOARD values (SEQ_BOARD_BNO.nextval, #{btitle}, #{bcontent}, default, 'kh1', 0, 0, 0)
+		<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+			select SEQ_BOARD_BNO.nextval nextval from dual
+		</selectKey>
+		insert into BOARD values (#{bno}, #{btitle}, #{bcontent}, default, #{mid}, #{bno}, 0, 0)
 	</insert>
 	<insert id="insertReply" parameterType="BoardVO">
-		insert into BOARD values (SEQ_BOARD_BNO.nextval, #{btitle}, #{bcontent}, default, 'kh1'
+		insert into BOARD values (SEQ_BOARD_BNO.nextval, #{btitle}, #{bcontent}, default, #{mid}
     	, (select bref from board where bno=#{bno})
     	, (select bre_level+1 from board where bno=#{bno})
     	, (select bre_step+1 from board where bno=#{bno}))
