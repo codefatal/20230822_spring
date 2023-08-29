@@ -13,7 +13,7 @@
 		<security:intercept-url pattern="/biz/**" access="hasRole('R_BIZ')"/>
 		<security:intercept-url pattern="/admin/**" access="hasRole('R_ADMIN')"/>
 		
-		<security:form-login login-page="/login" authentication-success-forward-url="/member/list" authentication-failure-forward-url="/login"/>
+		<security:form-login login-page="/login"  default-target-url="/board/list" authentication-failure-forward-url="/login"/>
 		<security:logout logout-url="/logout" logout-success-url="/board/list" invalidate-session="true" delete-cookies="remember-me, JSESSION_ID"/>
 	</security:http>
 	<security:authentication-manager>
@@ -32,5 +32,11 @@
 				/>
 		</security:authentication-provider>
 	</security:authentication-manager>
-
+	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+	<!-- 
+    <bean id="customAuthenticationProvider" class="kim.spring.ej.security.CustomAuthenticationProvider"></bean>
+    <bean id="customUserDetailsService" class="kim.spring.ej.security.CustomUserDetailsServiceImpl"></bean>
+    <bean id="customAccessFailure" class="kim.spring.ej.security.CustomAccessFailureHandler"></bean>
+    <bean id="customLoginSuccess" class="kim.spring.ej.security.CustomLoginSuccessHandler"></bean>
+    -->
 </beans>

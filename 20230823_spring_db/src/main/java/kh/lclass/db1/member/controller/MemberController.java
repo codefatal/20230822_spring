@@ -25,16 +25,17 @@ public class MemberController {
 	}
 	
 	@PostMapping("/login")
-	public String loginDo(Model model, RedirectAttributes redirectAttr, String mid, String mpwd) {
-		String result = memberService.login(mid);
+	public String loginDo(Model model, RedirectAttributes redirectAttr, String username, String password) {
+		String result = memberService.login(username);
+		System.out.println(password);
 		String viewPage = "";
-		if(mpwd == null) {
+		if(password == null) {
 			System.out.println("아이디가 존재하지 않습니다.");
 			redirectAttr.addFlashAttribute("msg", "아이디가 존재하지 않습니다.");
 			viewPage = "redirect:/login";
-		} else if(mpwd.equals(result)) {
+		} else if(password.equals(result)) {
 			System.out.println("로그인 성공");
-			model.addAttribute("loginID", mid);
+			model.addAttribute("loginID", username);
 			redirectAttr.addFlashAttribute("msg", "로그인에 성공했습니다.");
 			viewPage = "redirect:/board/list";
 		} else {

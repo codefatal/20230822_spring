@@ -25,14 +25,12 @@ public class MemberService {
 	public int insert(MemberVO vo) {
 		return memberDAO.insert(vo);
 	}
-	
 	public int update(MemberVO vo) {
 		return memberDAO.update(vo);
 	}
 	public int delete(String pk) {
 		return memberDAO.delete(pk);
 	}
-	
 	public String login(String mid) {
 		return memberDAO.login(mid);
 	}
