@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.7.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<security:http>
+		<security:intercept-url pattern="/" access="isAnonymous()"/>
+		<security:intercept-url pattern="/resources/**" access="permitAll"/>
+		<security:intercept-url pattern="/error/**" access="permitAll"/>
+		<security:intercept-url pattern="/board/**" access="hasRole('R_MEMBER')"/>
+		<security:intercept-url pattern="/biz/**" access="hasRole('R_BIZ')"/>
+		<security:intercept-url pattern="/admin/**" access="hasRole('R_ADMIN')"/>
+		
+		<security:form-login login-page="/login" authentication-success-forward-url="/member/list" authentication-failure-forward-url="/login"/>
+		<security:logout logout-url="/logout" logout-success-url="/board/list" invalidate-session="true" delete-cookies="remember-me, JSESSION_ID"/>
+	</security:http>
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="member" password="{noop}member" authorities="R_MEMBER"/>
+				<security:user name="biz" password="{noop}biz" authorities="R_BIZ"/>
+				<security:user name="admin" password="{noop}admin" authorities="R_ADMIN"/>
+			</security:user-service>
+			
+			<security:password-encoder hash="bcrypt"/>
+			<security:jdbc-user-service 
+				data-source-ref="dataSource"
+				users-by-username-query="select mid username, mpwd password, enabled from member where mid = ?"
+				authorities-by-username-query="select mid username, authority from member where mid = ?"
+				/>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>

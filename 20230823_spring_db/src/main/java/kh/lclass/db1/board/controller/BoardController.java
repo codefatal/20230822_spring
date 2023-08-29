@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kh.lclass.db1.board.model.service.BoardService;
@@ -23,9 +24,10 @@ public class BoardController {
 	private final BoardService boardService;
 	
 	@GetMapping("/list")
-	public String boardList(Model model) throws Exception {
-		model.addAttribute("boardList", boardService.selectList());
-		return "board/list";
+	public ModelAndView boardList(ModelAndView mv) throws Exception {
+		mv.addObject("boardList", boardService.selectList());
+		mv.setViewName("board/list");
+		return mv;
 	}
 	
 	@GetMapping("/get")
