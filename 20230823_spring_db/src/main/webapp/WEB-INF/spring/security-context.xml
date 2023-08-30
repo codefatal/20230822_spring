@@ -33,6 +33,7 @@
 		</security:authentication-provider>
 	</security:authentication-manager>
 	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+	<bean id="customLoginSuccess" class="kh.lclass.db1.common.CustomLoginSuccessHandler"></bean>
 	<!-- 
     <bean id="customAuthenticationProvider" class="kim.spring.ej.security.CustomAuthenticationProvider"></bean>
     <bean id="customUserDetailsService" class="kim.spring.ej.security.CustomUserDetailsServiceImpl"></bean>

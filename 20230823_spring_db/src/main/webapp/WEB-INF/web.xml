@@ -8,7 +8,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			/WEB-INF/spring/root-context.xml
-			<!-- 2. /WEB-INF/spring/security-context.xml 생성 방법 new -->
+			<!-- Spring Security 2 security-context.xml 생성 방법 new - Spring Bean Configuration file -->
 			/WEB-INF/spring/security-context.xml
 		</param-value>
 	</context-param>
@@ -55,6 +55,7 @@
 	</filter-mapping>
 	<!-- 한글설정 END -->
 	
+	<!-- Spring Security 3 -->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
